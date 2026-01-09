@@ -53,16 +53,15 @@ const Dashboard = () => {
     if (loading) return <LoadingSpinner text="Loading dashboard..." />;
 
     return (
-        <div style={{paddingTop: '100px', minHeight: '100vh'}}>
+        <div style={{paddingTop: '80px', backgroundColor: '#f8f9fa', minHeight: '100vh'}}>
             <Container className="fade-in">
-                <div className="d-flex justify-content-between align-items-center mb-5">
-                    <div>
-                        <h1 className="display-4 fw-bold text-dark mb-2">
-                            <i className="bi bi-speedometer2 me-3 text-primary"></i>
-                            Dashboard
-                        </h1>
-                        <p className="lead text-muted">Welcome to your Inventory Management System</p>
-                    </div>
+                {/* Page Header */}
+                <div className="page-header">
+                    <h1 className="page-title">
+                        <i className="bi bi-speedometer2 me-3 text-gradient"></i>
+                        Dashboard
+                    </h1>
+                    <p className="page-subtitle">Welcome to your Inventory Management System</p>
                 </div>
 
                 <ErrorAlert error={error} onClose={() => setError(null)} />
@@ -71,61 +70,61 @@ const Dashboard = () => {
                 {dashboardData && (
                     <>
                         {/* Summary Cards */}
-                        <Row className="mb-5">
-                            <Col lg={3} md={6} className="mb-4">
+                        <Row className="mb-4">
+                            <Col xl={3} lg={6} md={6} className="mb-4">
                                 <Card className="dashboard-card primary h-100">
                                     <Card.Body className="text-center p-4">
                                         <div className="mb-3">
-                                            <i className="bi bi-calendar-day" style={{fontSize: '3rem', opacity: 0.8}}></i>
+                                            <i className="bi bi-calendar-day" style={{fontSize: '2.5rem', opacity: 0.9}}></i>
                                         </div>
                                         <h2 className="display-6 fw-bold mb-2">{dashboardData.today.total_sales || 0}</h2>
-                                        <h5 className="mb-2">Today's Sales</h5>
-                                        <p className="mb-0 opacity-75">
+                                        <h6 className="mb-2 text-uppercase fw-bold">Today's Sales</h6>
+                                        <p className="mb-0 opacity-75 small">
                                             Revenue: ${parseFloat(dashboardData.today.total_revenue || 0).toFixed(2)}
                                         </p>
                                     </Card.Body>
                                 </Card>
                             </Col>
                             
-                            <Col lg={3} md={6} className="mb-4">
+                            <Col xl={3} lg={6} md={6} className="mb-4">
                                 <Card className="dashboard-card success h-100">
                                     <Card.Body className="text-center p-4">
                                         <div className="mb-3">
-                                            <i className="bi bi-calendar-month" style={{fontSize: '3rem', opacity: 0.8}}></i>
+                                            <i className="bi bi-calendar-month" style={{fontSize: '2.5rem', opacity: 0.9}}></i>
                                         </div>
                                         <h2 className="display-6 fw-bold mb-2">{dashboardData.thisMonth.total_sales || 0}</h2>
-                                        <h5 className="mb-2">This Month</h5>
-                                        <p className="mb-0 opacity-75">
+                                        <h6 className="mb-2 text-uppercase fw-bold">This Month</h6>
+                                        <p className="mb-0 opacity-75 small">
                                             Revenue: ${parseFloat(dashboardData.thisMonth.total_revenue || 0).toFixed(2)}
                                         </p>
                                     </Card.Body>
                                 </Card>
                             </Col>
                             
-                            <Col lg={3} md={6} className="mb-4">
+                            <Col xl={3} lg={6} md={6} className="mb-4">
                                 <Card className="dashboard-card warning h-100">
                                     <Card.Body className="text-center p-4">
                                         <div className="mb-3">
-                                            <i className="bi bi-graph-up" style={{fontSize: '3rem', opacity: 0.8}}></i>
+                                            <i className="bi bi-graph-up" style={{fontSize: '2.5rem', opacity: 0.9}}></i>
                                         </div>
                                         <h2 className="display-6 fw-bold mb-2">
                                             ${parseFloat(dashboardData.overall.total_profit || 0).toFixed(0)}
                                         </h2>
-                                        <h5 className="mb-2">Total Profit</h5>
-                                        <p className="mb-0 opacity-75">All time earnings</p>
+                                        <h6 className="mb-2 text-uppercase fw-bold">Total Profit</h6>
+                                        <p className="mb-0 opacity-75 small">All time earnings</p>
                                     </Card.Body>
                                 </Card>
                             </Col>
                             
-                            <Col lg={3} md={6} className="mb-4">
+                            <Col xl={3} lg={6} md={6} className="mb-4">
                                 <Card className="dashboard-card danger h-100">
                                     <Card.Body className="text-center p-4">
                                         <div className="mb-3">
-                                            <i className="bi bi-exclamation-triangle" style={{fontSize: '3rem', opacity: 0.8}}></i>
+                                            <i className="bi bi-exclamation-triangle" style={{fontSize: '2.5rem', opacity: 0.9}}></i>
                                         </div>
                                         <h2 className="display-6 fw-bold mb-2">{lowStockProducts.length}</h2>
-                                        <h5 className="mb-2">Low Stock Items</h5>
-                                        <p className="mb-0 opacity-75">Need attention</p>
+                                        <h6 className="mb-2 text-uppercase fw-bold">Low Stock Items</h6>
+                                        <p className="mb-0 opacity-75 small">Need attention</p>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -136,7 +135,7 @@ const Dashboard = () => {
                             {/* Top Products */}
                             <Col lg={6} className="mb-4">
                                 <Card className="custom-card h-100">
-                                    <Card.Header className="bg-gradient text-white" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}}>
+                                    <Card.Header className="card-header-custom">
                                         <h5 className="mb-0 d-flex align-items-center">
                                             <i className="bi bi-trophy me-2"></i>
                                             Top Selling Products
@@ -144,49 +143,52 @@ const Dashboard = () => {
                                     </Card.Header>
                                     <Card.Body className="p-0">
                                         {dashboardData.topProducts.length > 0 ? (
-                                            <Table className="custom-table mb-0" hover>
-                                                <thead>
-                                                    <tr>
-                                                        <th className="border-0">Rank</th>
-                                                        <th className="border-0">Product</th>
-                                                        <th className="border-0">Sold</th>
-                                                        <th className="border-0">Revenue</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {dashboardData.topProducts.map((product, index) => (
-                                                        <tr key={product.id}>
-                                                            <td>
-                                                                <Badge 
-                                                                    bg={index < 3 ? 'warning' : 'secondary'} 
-                                                                    className="badge"
-                                                                >
-                                                                    #{index + 1}
-                                                                </Badge>
-                                                            </td>
-                                                            <td>
-                                                                <strong>{product.name}</strong>
-                                                                <br />
-                                                                <small className="text-muted">{product.category}</small>
-                                                            </td>
-                                                            <td>
-                                                                <Badge bg="info" className="badge">
-                                                                    {product.total_sold}
-                                                                </Badge>
-                                                            </td>
-                                                            <td>
-                                                                <strong className="text-success">
-                                                                    ${parseFloat(product.total_revenue).toFixed(2)}
-                                                                </strong>
-                                                            </td>
+                                            <div className="table-responsive">
+                                                <Table className="custom-table mb-0" hover>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Rank</th>
+                                                            <th>Product</th>
+                                                            <th>Sold</th>
+                                                            <th>Revenue</th>
                                                         </tr>
-                                                    ))}
-                                                </tbody>
-                                            </Table>
+                                                    </thead>
+                                                    <tbody>
+                                                        {dashboardData.topProducts.map((product, index) => (
+                                                            <tr key={product.id}>
+                                                                <td>
+                                                                    <Badge 
+                                                                        bg={index < 3 ? 'warning' : 'secondary'} 
+                                                                        className="badge"
+                                                                    >
+                                                                        #{index + 1}
+                                                                    </Badge>
+                                                                </td>
+                                                                <td>
+                                                                    <div>
+                                                                        <strong className="d-block">{product.name}</strong>
+                                                                        <small className="text-muted">{product.category}</small>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <Badge bg="info" className="badge">
+                                                                        {product.total_sold}
+                                                                    </Badge>
+                                                                </td>
+                                                                <td>
+                                                                    <strong className="text-success">
+                                                                        ${parseFloat(product.total_revenue).toFixed(2)}
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </Table>
+                                            </div>
                                         ) : (
                                             <div className="text-center py-5">
                                                 <i className="bi bi-graph-down text-muted" style={{fontSize: '3rem'}}></i>
-                                                <p className="mt-3 text-muted">No sales data available</p>
+                                                <p className="mt-3 text-muted mb-0">No sales data available</p>
                                             </div>
                                         )}
                                     </Card.Body>
@@ -196,7 +198,7 @@ const Dashboard = () => {
                             {/* Low Stock Products */}
                             <Col lg={6} className="mb-4">
                                 <Card className="custom-card h-100">
-                                    <Card.Header className="d-flex justify-content-between align-items-center bg-gradient text-white" style={{background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)'}}>
+                                    <Card.Header className="d-flex justify-content-between align-items-center" style={{background: 'linear-gradient(135deg, #fc466b 0%, #3f5efb 100%)', color: 'white', padding: '15px 20px', fontWeight: 600}}>
                                         <h5 className="mb-0 d-flex align-items-center">
                                             <i className="bi bi-exclamation-triangle me-2"></i>
                                             Low Stock Alert
@@ -215,42 +217,45 @@ const Dashboard = () => {
                                     </Card.Header>
                                     <Card.Body className="p-0">
                                         {lowStockProducts.length > 0 ? (
-                                            <Table className="custom-table mb-0" hover>
-                                                <thead>
-                                                    <tr>
-                                                        <th className="border-0">Product</th>
-                                                        <th className="border-0">Stock</th>
-                                                        <th className="border-0">Min</th>
-                                                        <th className="border-0">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {lowStockProducts.slice(0, 5).map((product) => (
-                                                        <tr key={product.id}>
-                                                            <td>
-                                                                <strong>{product.name}</strong>
-                                                                <br />
-                                                                <small className="text-muted">{product.category}</small>
-                                                            </td>
-                                                            <td>
-                                                                <Badge bg="danger" className="badge">
-                                                                    {product.stock_quantity}
-                                                                </Badge>
-                                                            </td>
-                                                            <td>{product.min_stock}</td>
-                                                            <td>
-                                                                <span className="status-indicator status-low"></span>
-                                                                Critical
-                                                            </td>
+                                            <div className="table-responsive">
+                                                <Table className="custom-table mb-0" hover>
+                                                    <thead style={{background: 'linear-gradient(135deg, #fc466b 0%, #3f5efb 100%)', color: 'white'}}>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>Stock</th>
+                                                            <th>Min</th>
+                                                            <th>Status</th>
                                                         </tr>
-                                                    ))}
-                                                </tbody>
-                                            </Table>
+                                                    </thead>
+                                                    <tbody>
+                                                        {lowStockProducts.slice(0, 5).map((product) => (
+                                                            <tr key={product.id}>
+                                                                <td>
+                                                                    <div>
+                                                                        <strong className="d-block">{product.name}</strong>
+                                                                        <small className="text-muted">{product.category}</small>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <Badge bg="danger" className="badge">
+                                                                        {product.stock_quantity}
+                                                                    </Badge>
+                                                                </td>
+                                                                <td>{product.min_stock}</td>
+                                                                <td>
+                                                                    <span className="status-indicator status-low"></span>
+                                                                    <small className="text-danger fw-bold">Critical</small>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </Table>
+                                            </div>
                                         ) : (
                                             <div className="text-center py-5">
                                                 <i className="bi bi-check-circle text-success" style={{fontSize: '3rem'}}></i>
                                                 <h5 className="mt-3 text-success">All Good!</h5>
-                                                <p className="text-muted">All products are well stocked</p>
+                                                <p className="text-muted mb-0">All products are well stocked</p>
                                             </div>
                                         )}
                                     </Card.Body>
